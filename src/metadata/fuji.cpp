@@ -360,6 +360,7 @@ void LibRaw::parseAdobeRAFMakernote()
               (imFuji.RAFDataVersion == 0x0265) || // X-E4, X-T5
               (imFuji.RAFDataVersion == 0x0266) || // X-T30 II
               (imFuji.RAFDataVersion == 0x0267) || // GFX 100 II
+              (imFuji.RAFDataVersion == 0x026c) || // X-E5
               (imFuji.RAFDataVersion == 0x0368) || // GFX 100S II
               (imFuji.RAFDataVersion == 0x0369) || // X100VI
               (imFuji.RAFDataVersion == 0x036a) || // X-T50
@@ -378,6 +379,7 @@ void LibRaw::parseAdobeRAFMakernote()
                 !strcmp(model, "X-T5")        ||
                 !strcmp(model, "X-M5")        ||
                 !strcmp(model, "X-E4")        ||
+                !strcmp(model, "X-E5")        ||
                 !strcmp(model, "X-T30 II")    ||
                 !strcmp(model, "X-S10"))
             is34 = 1;
@@ -511,6 +513,10 @@ void LibRaw::parseAdobeRAFMakernote()
           else if (imFuji.RAFDataVersion == 0x0267) // GFX 100 II
           {
             wb_section_offset = 0x0cae;
+          }
+          else if (imFuji.RAFDataVersion == 0x026c) // X-E5
+          {
+            wb_section_offset = 0x0cfa;
           }
           else if (imFuji.RAFDataVersion == 0x0355) // X-E2S
           {
@@ -715,6 +721,11 @@ void LibRaw::parseAdobeRAFMakernote()
           {
             if (PrivateMknBuf.isWB(posPrivateMknBuf + 0x0cea))
               wb_section_offset = 0x0cea;
+          }
+          else if (!strcmp(model, "X-E5"))
+          {
+            if (PrivateMknBuf.isWB(posPrivateMknBuf + 0x0cfa))
+              wb_section_offset = 0x0cfa;
           }
 
 /* no RAF Data version for the models below */

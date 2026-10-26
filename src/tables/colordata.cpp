@@ -532,6 +532,8 @@ int LibRaw::adobe_coeff(unsigned make_idx, const char *t_model,
 	  { 11434,-4948,-1210,-3746,12042,1903,-666,1479,5235 } },
 	{ LIBRAW_CAMERAMAKER_Fujifilm, "X-E4", 0, 0,
 	  { 13426, -6334, -1177, -4244, 12136, 2371, -580, 1303, 5980 } },
+	{ LIBRAW_CAMERAMAKER_Fujifilm, "X-E5", 0, 0, // same CMs: X-T5, X-H2, X100VI (40 MP X-Trans 5 HR)
+	  { 11809,-5358,-1141,-4248,12164,2343,-514,1097,5848 } },
 	{ LIBRAW_CAMERAMAKER_Fujifilm, "X-H1", 0, 0,
 	  { 11434,-4948,-1210,-3746,12042,1903,-666,1479,5235 } },
 	{ LIBRAW_CAMERAMAKER_Fujifilm, "X-H2S", 0, 0,
