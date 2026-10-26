@@ -19,6 +19,7 @@ Upstream master at `2caab57` (20 October 2026), merged on 25 October 2026 in `8a
 | Malformed streams | `fedabb2` | Bounded table lookups, saturating arithmetic, checked slice headers, unverified geometries refused; the decoder no longer flagged unsupported | — |
 | Camera list | `f3d2bc3` | The Z 6III, Z 8, Z 9 and Z f without the note that HE and HE* aren't supported | — |
 | The bench | `redlamp/bench/` | Checks the decoder on samples of every body that writes HE files, against Adobe DNG Converter's decode, and for data races under ThreadSanitizer (`c6f39d6`) | — |
+| The Fujifilm X-E5 ([pdcgomes/redlamp#184](https://github.com/pdcgomes/redlamp/issues/184), CAM-21) | `02e266b` | Master has no colour matrix for it, so its raws opened without an As Shot temperature and Custom white balance did nothing. It takes the matrix of the X-T5, X-T50, X-H2 and X100VI, whose 40 MP X-Trans 5 HR sensor and X-Processor 5 it shares, and its RAF data version (0x026c) joins the bodies with 34 colour temperatures, so its colour-temperature table is read as theirs is. Its levels, sizes and crop already came from the file as the X-T5's do; no other body's parse changes | Drafted as a pull request for the owner to send (`pr/x-e5`) |
 
 Upstream has taken one change: the model aliases' race (`2a32db1`, [pdcgomes/redlamp#444](https://github.com/pdcgomes/redlamp/issues/444)), in which identifications running at once could copy another camera's alias. Master fixed it in [`1a8fd32`](https://github.com/LibRaw/LibRaw/commit/1a8fd32ed6) (15 October 2026) on the same line, merged here in `8a064e1`, so the branch now has master's line.
 
@@ -47,6 +48,8 @@ To adopt upstream's commits:
 When LibRaw's own HE decoder lands on master or in a snapshot, the merge conflicts in `src/decoders/nikon_he*` or the bench fails; check upstream's decoder with the bench before anything else: on a branch at that upstream commit with only `redlamp/bench/` added, run `bench.py full`. If every sample decodes to its golden (or, with Adobe DNG Converter's references in `redlamp/bench/refs/`, matches Adobe's) and the sanitizer, concurrency and fuzzing checks pass, take upstream's side of the HE decoder in the merge, keep the bench, and record the switch here and in Redlamp's tracker (CAM-12, CAM-30). If it doesn't pass, keep ours and record what failed.
 
 ## Findings not yet shared upstream
+
+The X-E5's entries are drafted as a pull request to LibRaw, for the owner to send: the branch `pr/x-e5` holds the same change as `02e266b` on master at `2caab57` (`4a4ce7e`).
 
 These are for the owner to post, or not: on LibRaw#826, the Z50 II's crash and corruption and their causes, the static layout's race, and the fuzzing crash in `ver_lift_lb_step`, with the fixes above; on [dnglab#835](https://github.com/dnglab/dnglab/pull/835), its red 4.5% to 8.9% too strong against lossless shots of the same scenes. The race on `GetNormalizedModel`'s static alias pointer needs no post: master fixed it in `1a8fd32`.
 
