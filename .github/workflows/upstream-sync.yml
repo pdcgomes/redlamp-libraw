@@ -25,6 +25,7 @@ jobs:
     timeout-minutes: 120
     env:
       GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }} # gh would otherwise work on the upstream remote, LibRaw/LibRaw
     steps:
       - uses: actions/checkout@v4
         with:
